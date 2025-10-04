@@ -1,0 +1,30 @@
+# Environment variables (NEVER commit API keys)
+.env
+.env.local
+.env.production
+
+# Generated files
+generated/
+*.png
+*.jpg
+*.jpeg
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

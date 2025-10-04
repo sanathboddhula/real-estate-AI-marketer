@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏠 AI Real Estate Marketer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>🏠 AI Real Estate Marketer</h1>
+        <p>Create professional property marketing flyers in seconds</p>
+    </div>
+    
+    <!-- Zillow URL Input -->
+    <div style="max-width: 800px; margin: 0 auto 20px; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+        <div class="form-group">
+            <label for="zillow-url">🔗 Zillow Listing URL</label>
+            <input type="url" id="zillow-url" placeholder="https://www.zillow.com/homedetails/123-oak-st...">
+            <button type="button" onclick="loadFromZillow()" style="margin-top: 10px; padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">📥 Load Property Data</button>
+        </div>
+        
+        <div id="property-data-display" style="display: none; background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 15px;">
+            <h4 style="color: #2c3e50; margin-bottom: 10px;">✅ Property Data Loaded</h4>
+            <div id="loaded-property-info"></div>
+        </div>
+        
+
+    </div>
+    
+    <!-- Flyer Generator Tab -->
+    <div style="max-width: 1400px; margin: 0 auto;">
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('flyer-tab')">✨ Flyer Generator</button>
+            <button class="nav-tab" onclick="switchTab('ai-tab')">🤖 AI Marketing Suite</button>
+        </div>
+        
+        <div class="container tab-content active" id="flyer-tab">
+        <div class="form-section">
+            <h2>🎨 Flyer Options</h2>
+            <form id="flyer-form">
+                <input type="hidden" id="address" name="address">
+                <input type="hidden" id="price" name="price">
+                <input type="hidden" id="bedrooms" name="bedrooms">
+                <input type="hidden" id="bathrooms" name="bathrooms">
+                <input type="hidden" id="property-image" name="property_image">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="template">🎨 Template Style</label>
+                        <select id="template" name="template">
+                            <option value="modern">Modern</option>
+                            <option value="luxury">Luxury</option>
+                            <option value="classic">Classic</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="format">📱 Format</label>
+                        <select id="format" name="format">
+                            <option value="flyer">Print Flyer</option>
+                            <option value="instagram">Instagram Story</option>
+                            <option value="facebook">Facebook Post</option>
+                            <option value="linkedin">LinkedIn Post</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" id="generate-btn">
+                    ✨ Generate Professional Flyer
+                </button>
+            </form>
+            
+
+            
+            <div class="loading" id="loading">
+                🎨 Creating your professional flyer...
+            </div>
+            
+            <div class="ai-agent-status" id="ai-status">
+                <div style="color: #27ae60; font-weight: bold;">🤖 AI Neighborhood Agent Active</div>
+                <div style="font-size: 12px; color: #2c3e50;">Analyzing Zillow data and generating story...</div>
+            </div>
+            
+            <div class="error" id="error" style="display: none;"></div>
+        </div>
+        
+        <div class="preview-section">
+            <h2>Generated Flyer</h2>
+            <div id="preview-container">
+                <div class="placeholder">
+                    <p>🎯 Your AI-generated flyer will appear here</p>
+                    <p>Fill in the property details and click generate!</p>
+                </div>
+            </div>
+            
+            <div id="insights-container" style="display: none;">
+                <h3>📊 Property Insights</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <h4 style="color: #2c3e50; margin-bottom: 10px;">💰 Financial Overview</h4>
+                    <div id="mortgage-info"></div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <h4 style="color: #2c3e50; margin-bottom: 10px;">📈 Market Performance</h4>
+                    <div id="neighborhood-info"></div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <h4 style="color: #2c3e50; margin-bottom: 10px;">🏘️ Location Value</h4>
+                    <div id="property-info"></div>
+                </div>
+                
+                <div id="share-options" style="margin-top: 15px;">
+                    <h4>Share Your Flyer:</h4>
+                    <button id="download-btn" class="demo-btn">📥 Download Flyer</button>
+                </div>
+                
+                <div id="captions-display" style="display: none; margin-top: 15px;">
+                    <h4>Social Media Captions:</h4>
+                    <div id="captions-content"></div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        <!-- AI Marketing Suite Tab -->
+        <div class="container ai-suite tab-content" id="ai-tab">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h2>🤖 AI Marketing Suite</h2>
+                <p>Generate comprehensive marketing content for your property</p>
+            </div>
+            
+            <div class="ai-buttons">
+                <button id="descriptions-btn" class="ai-btn">📝 Property Descriptions</button>
+                <button id="social-content-btn" class="ai-btn">📱 Social Media Content</button>
+                <button id="cma-btn" class="ai-btn">📊 CMA Analysis</button>
+                <button id="full-agent-btn" class="ai-btn">🚀 Complete Marketing Package</button>
+            </div>
+            
+            <div id="ai-results-display" class="ai-results">
+                <div id="ai-results-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

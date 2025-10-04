@@ -2,6 +2,8 @@
 
 **4-Hour Hackathon Project** - Generate professional property marketing flyers instantly using AI and the Freepik API.
 
+Link: https://real-estate-ai-marketer.onrender.com/
+
 ## 🎯 Project Goal
 Create an AI agent that transforms basic listing data (address, price, bedrooms, bathrooms) into professional property marketing flyers in under 30 seconds.
 

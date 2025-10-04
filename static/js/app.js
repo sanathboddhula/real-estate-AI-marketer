@@ -105,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
                 
                 displayDiv.style.display = 'block';
-                alert('✅ Property data loaded successfully!');
             } else {
                 alert('❌ Error: ' + (result.error || 'Failed to load property data'));
             }
